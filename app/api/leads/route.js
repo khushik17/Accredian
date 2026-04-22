@@ -1,33 +1,36 @@
 import { NextResponse } from "next/server";
-import { promises as fs } from "fs";
-import path from "path";
-
-const leadsFilePath = path.join(process.cwd(), "data", "leads.json");
-
-async function readLeads() {
-  try {
-    const fileContents = await fs.readFile(leadsFilePath, "utf8");
-    const parsed = JSON.parse(fileContents);
-
-    return Array.isArray(parsed) ? parsed : [];
-  } catch {
-    return [];
-  }
-}
-
-async function writeLeads(leads) {
-  const directory = path.dirname(leadsFilePath);
-  await fs.mkdir(directory, { recursive: true });
-  await fs.writeFile(leadsFilePath, JSON.stringify(leads, null, 2), "utf8");
-}
+import { connectToDatabase } from "@/lib/mongodb";
+import Lead from "@/models/Lead";
 
 export async function GET() {
-  const leads = await readLeads();
-  return NextResponse.json({ leads, count: leads.length });
+  try {
+    await connectToDatabase();
+
+    const docs = await Lead.find({}).sort({ createdAt: -1 }).lean();
+    const leads = docs.map((doc) => ({
+      id: String(doc._id),
+      name: doc.name,
+      email: doc.email,
+      company: doc.company,
+      phone: doc.phone || "",
+      interest: doc.interest || "",
+      message: doc.message || "",
+      createdAt: doc.createdAt,
+    }));
+
+    return NextResponse.json({ leads, count: leads.length });
+  } catch (error) {
+    return NextResponse.json(
+      { error: error?.message || "Failed to fetch leads." },
+      { status: 500 },
+    );
+  }
 }
 
 export async function POST(request) {
   try {
+    await connectToDatabase();
+
     const body = await request.json();
     const name = String(body?.name || "").trim();
     const email = String(body?.email || "").trim();
@@ -43,20 +46,25 @@ export async function POST(request) {
       );
     }
 
-    const leads = await readLeads();
-    const lead = {
-      id: crypto.randomUUID(),
+    const createdLead = await Lead.create({
       name,
       email,
       company,
       phone,
       interest,
       message,
-      createdAt: new Date().toISOString(),
-    };
+    });
 
-    leads.unshift(lead);
-    await writeLeads(leads);
+    const lead = {
+      id: String(createdLead._id),
+      name: createdLead.name,
+      email: createdLead.email,
+      company: createdLead.company,
+      phone: createdLead.phone || "",
+      interest: createdLead.interest || "",
+      message: createdLead.message || "",
+      createdAt: createdLead.createdAt,
+    };
 
     return NextResponse.json({ lead }, { status: 201 });
   } catch (error) {

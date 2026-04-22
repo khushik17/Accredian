@@ -15,6 +15,7 @@ export default function LeadCaptureForm() {
   const [form, setForm] = useState(initialFormState);
   const [status, setStatus] = useState("idle");
   const [error, setError] = useState("");
+  const [open, setOpen] = useState(false); // ✅ dropdown state
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -49,6 +50,13 @@ export default function LeadCaptureForm() {
     }
   };
 
+  const options = [
+    "Enterprise upskilling",
+    "Leadership development",
+    "AI & analytics training",
+    "Custom program design",
+  ];
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -74,7 +82,7 @@ export default function LeadCaptureForm() {
             value={form.name}
             onChange={handleChange}
             required
-            className="rounded-xl border border-white/30 bg-white/14 px-4 py-3 text-white outline-none ring-0 transition placeholder:text-slate-300 focus:border-blue-300 focus:shadow-[0_0_0_4px_rgba(147,197,253,0.15)]"
+            className="rounded-xl border border-white/30 bg-white/14 px-4 py-3 text-white outline-none"
             placeholder="Your name"
           />
         </label>
@@ -87,7 +95,7 @@ export default function LeadCaptureForm() {
             value={form.email}
             onChange={handleChange}
             required
-            className="rounded-xl border border-white/30 bg-white/14 px-4 py-3 text-white outline-none ring-0 transition placeholder:text-slate-300 focus:border-blue-300 focus:shadow-[0_0_0_4px_rgba(147,197,253,0.15)]"
+            className="rounded-xl border border-white/30 bg-white/14 px-4 py-3 text-white outline-none"
             placeholder="name@company.com"
           />
         </label>
@@ -99,7 +107,7 @@ export default function LeadCaptureForm() {
             value={form.company}
             onChange={handleChange}
             required
-            className="rounded-xl border border-white/30 bg-white/14 px-4 py-3 text-white outline-none ring-0 transition placeholder:text-slate-300 focus:border-blue-300 focus:shadow-[0_0_0_4px_rgba(147,197,253,0.15)]"
+            className="rounded-xl border border-white/30 bg-white/14 px-4 py-3 text-white outline-none"
             placeholder="Company name"
           />
         </label>
@@ -110,25 +118,41 @@ export default function LeadCaptureForm() {
             name="phone"
             value={form.phone}
             onChange={handleChange}
-            className="rounded-xl border border-white/30 bg-white/14 px-4 py-3 text-white outline-none ring-0 transition placeholder:text-slate-300 focus:border-blue-300 focus:shadow-[0_0_0_4px_rgba(147,197,253,0.15)]"
+            className="rounded-xl border border-white/30 bg-white/14 px-4 py-3 text-white outline-none"
             placeholder="Optional"
           />
         </label>
       </div>
 
+      {/* ✅ CUSTOM DROPDOWN */}
       <label className="mt-4 grid gap-2 text-sm font-medium text-slate-100">
         Interest area
-        <select
-          name="interest"
-          value={form.interest}
-          onChange={handleChange}
-          className="rounded-xl border border-white/30 bg-white/14 px-4 py-3 text-white outline-none ring-0 transition focus:border-blue-300 focus:shadow-[0_0_0_4px_rgba(147,197,253,0.15)]"
-        >
-          <option>Enterprise upskilling</option>
-          <option>Leadership development</option>
-          <option>AI & analytics training</option>
-          <option>Custom program design</option>
-        </select>
+        <div className="relative">
+          <button
+            type="button"
+            onClick={() => setOpen(!open)}
+            className="w-full rounded-xl border border-white/30 bg-white/14 px-4 py-3 text-left text-white"
+          >
+            {form.interest}
+          </button>
+
+          {open && (
+            <div className="absolute z-10 mt-2 w-full rounded-xl border border-white/20 bg-slate-900 shadow-lg">
+              {options.map((option) => (
+                <div
+                  key={option}
+                  onClick={() => {
+                    setForm((prev) => ({ ...prev, interest: option }));
+                    setOpen(false);
+                  }}
+                  className="cursor-pointer px-4 py-3 text-white hover:bg-slate-800"
+                >
+                  {option}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </label>
 
       <label className="mt-4 grid gap-2 text-sm font-medium text-slate-100">
@@ -138,7 +162,7 @@ export default function LeadCaptureForm() {
           value={form.message}
           onChange={handleChange}
           rows="4"
-          className="rounded-xl border border-white/30 bg-white/14 px-4 py-3 text-white outline-none ring-0 transition placeholder:text-slate-300 focus:border-blue-300 focus:shadow-[0_0_0_4px_rgba(147,197,253,0.15)]"
+          className="rounded-xl border border-white/30 bg-white/14 px-4 py-3 text-white outline-none"
           placeholder="Tell us what your team needs"
         />
       </label>
@@ -147,17 +171,17 @@ export default function LeadCaptureForm() {
         <button
           type="submit"
           disabled={status === "submitting"}
-          className="gradient-button ripple-button inline-flex items-center justify-center rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-70"
+          className="rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white"
         >
           {status === "submitting" ? "Saving..." : "Submit enquiry"}
         </button>
 
         {status === "success" ? (
-          <p className="text-sm font-medium text-emerald-300">
+          <p className="text-sm text-emerald-300">
             Lead saved successfully.
           </p>
         ) : error ? (
-          <p className="text-sm font-medium text-red-300">{error}</p>
+          <p className="text-sm text-red-300">{error}</p>
         ) : (
           <p className="text-sm text-slate-300">
             We will store this through the Next.js API route.

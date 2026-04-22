@@ -654,6 +654,18 @@ section {
   background: #ffffff;
 }
 
+.lead-interest-select option,
+.lead-interest-option {
+  color: #0f172a;
+  background-color: #ffffff;
+}
+
+[data-theme="dark"] .lead-interest-select option,
+[data-theme="dark"] .lead-interest-option {
+  color: #e2e8f0;
+  background-color: #0f172a;
+}
+
 .primary-nav-button {
   background: linear-gradient(135deg, #2563eb, #1d4ed8);
 }

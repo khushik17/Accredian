@@ -9,7 +9,7 @@ export default function HeroSection() {
             src="/hero.png"
             alt="Business team collaboration"
             fill
-            priority
+            sizes="100vw"
             className="absolute inset-0 h-full w-full object-cover"
             style={{ objectPosition: "center center" }}
           />

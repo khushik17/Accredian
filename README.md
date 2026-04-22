@@ -1,76 +1,83 @@
 # 🚀 Accredian Enterprise Landing Page
 
-A responsive and interactive enterprise landing page built using Next.js App Router, focusing on clean architecture, reusable components, and real-world UI interactions rather than static template replication.
+A modern, responsive enterprise landing page built using **Next.js App Router**, focused on clean architecture, reusable components, and real-world product-like interactions.
 
 ---
 
 ## ✨ Features
 
-* Responsive landing page structured with reusable sections
-* Sticky navigation with smooth scrolling and theme switching
-* Modular sections including hero, stats, partners, content blocks, FAQ, CTA, and footer
-* Dynamic hero experience with animated counters for key metrics
-* Adaptive data visualization using **pie layout on mobile** and **timeline layout on desktop**
-* Skeleton loaders and refined loading states for improved perceived performance
-* Floating chat widget with API-backed responses
-* Lead capture form integrated with a Next.js API route
-* Lead dashboard to review submitted enquiries
-* Theme-aware styling with persistent dark/light mode
-* Smooth anchored navigation across sections
-* Mobile-first layout optimized for multiple screen sizes
+* 📱 Fully responsive landing page with reusable sections
+* 🧭 Sticky navigation with smooth scrolling & theme toggle
+* 🎯 Hero, stats, partners, content blocks, FAQ, CTA & footer
+* 💬 Floating chat widget with API-backed responses
+* 📝 Lead capture form integrated with backend (MongoDB)
+* 📊 Lead dashboard to view submitted enquiries
+* ⚡ Skeleton loaders & smooth loading states
+* 🌙 Persistent dark/light mode support
+* 🔗 Smooth anchored navigation between sections
+* 📈 Animated counters for dynamic UI experience
+* 📊 Adaptive visualization (mobile vs desktop layouts)
+* 🧩 Modular and scalable component-based architecture
 
 ---
 
 ## 🧩 Tech Stack
 
-* Next.js 16 (App Router)
-* React (Functional Components + Hooks)
-* Tailwind CSS
-* Next.js API Routes (backend integration)
-* Groq API (chat functionality)
-* Local JSON-based mock data (development)
+* **Next.js 16 (App Router)**
+* **React (Hooks + Functional Components)**
+* **Tailwind CSS**
+* **MongoDB (Mongoose)**
+* **Next.js API Routes**
+* **Groq API (Chat Integration)**
 
 ---
 
 ## 📁 Project Structure
 
-* `app/page.js` — Landing page entry point
-* `app/layout.js` — Root layout, global font setup, and theme initialization
-* `app/api/chat/route.js` — Chat API route
-* `app/api/leads/route.js` — Lead capture API route
-* `app/api/enterprise-data/route.js` — Partner data API route
-* `components/` — Reusable UI sections and widgets
-* `data/leads.json` — Local lead storage (development only)
+```
+app/
+ ├── page.js                 # Landing page
+ ├── layout.js               # Root layout
+ ├── api/
+ │    ├── chat/route.js      # Chat API
+ │    ├── leads/route.js     # Lead API
+ │    └── enterprise-data/   # Data API
+components/                  # UI components
+models/Lead.js               # DB schema
+lib/mongodb.js               # DB connection
+data/leads.json              # Local storage (dev only)
+```
 
 ---
 
-## ⚙️ Setup
+## ⚙️ Setup Instructions
 
-1. Install dependencies:
+### 1. Install dependencies
 
 ```bash
 npm install
 ```
 
-2. Create local environment file:
+### 2. Create environment file
 
 ```bash
 cp .env.example .env.local
 ```
 
-3. Add your API key:
+### 3. Add environment variables
 
 ```env
-GROQ_API_KEY=your_actual_groq_api_key
+GROQ_API_KEY=your_api_key
+MONGODB_URI=your_mongodb_connection
 ```
 
-4. Run the development server:
+### 4. Run the app
 
 ```bash
 npm run dev
 ```
 
-5. Open:
+### 5. Open in browser
 
 ```
 http://localhost:3000
@@ -78,61 +85,71 @@ http://localhost:3000
 
 ---
 
-## 🧠 Approach Taken
+## 🧠 Approach
 
-The application is structured around a **section-driven architecture**, allowing each part of the landing page to remain modular, readable, and reusable.
+This project follows a **section-driven architecture** to keep the UI modular and maintainable.
 
-The focus was on building a **realistic product-like experience**, not just a static UI. Key considerations included:
+### Key decisions:
 
-* Maintaining clear separation between UI and data through API routes
-* Using skeleton states to improve perceived loading performance
-* Introducing dynamic elements (animated counters, responsive visualizations) to enhance engagement
-* Ensuring theme consistency by initializing mode before first paint
-* Keeping components small and composable for easier scaling
-
-The overall approach prioritizes clarity, maintainability, and user experience over unnecessary complexity.
+* Separation of frontend & backend using API routes
+* Focus on **real product experience**, not static UI
+* Use of skeleton loaders for better perceived performance
+* Dynamic elements like animations & responsive layouts
+* Clean and scalable component structure
 
 ---
 
-#🤖 AI Usage
+## 🤖 AI Usage
 
-AI tools were used selectively during development for higher-level guidance, such as understanding structure, improving content clarity, and exploring better approaches for aspects like SEO and overall user experience.
+AI tools were used for:
 
-Basic implementation, UI logic, and core features were built and refined independently to ensure a clear understanding of the system and maintain full control over the codebase.
+* Improving structure and clarity
+* Exploring better UX approaches
+* SEO suggestions
+
+Core implementation, logic, and UI were built independently.
+
+---
 
 ## 🚀 Improvements With More Time
 
-* Replace local JSON storage with a persistent database
-* Strengthen validation for form inputs and chat interactions
-* Improve accessibility (ARIA roles, keyboard navigation)
-* Add analytics for tracking user interactions and conversions
-* Enhance chat with contextual memory and better UX feedback
-* Introduce unit and integration testing
-* Expand reusable sections for future scalability
-* Add richer micro-interactions (toasts, transitions, feedback states)
+* 🔒 Stronger validation for forms
+* ♿ Accessibility improvements (ARIA, keyboard nav)
+* 📊 Analytics integration
+* 🧠 Smarter chat with memory
+* 🧪 Unit & integration testing
+* 🎨 More reusable sections
+* ✨ Micro-interactions (toasts, animations)
 
 ---
 
 ## 🌐 Deployment
 
-The project is ready for deployment on Vercel:
+Deployed easily using **Vercel**:
 
-1. Push the repository to GitHub
-2. Import the project into Vercel
-3. Configure environment variables:
-
-```
-GROQ_API_KEY
-```
-
-4. Deploy the application
+1. Push code to GitHub
+2. Import repo in Vercel
+3. Add environment variables
+4. Deploy 🚀
 
 ---
 
 ## 🎯 Highlights
 
-* Clean and scalable architecture
-* Real-world features (chat system, lead capture, dashboard)
-* Performance-focused UI with skeleton loading and dynamic rendering
-* Adaptive UI patterns based on device type
-* Designed with production-readiness in mind
+* 🧱 Clean & scalable architecture
+* 💼 Real-world features (chat + lead system + dashboard)
+* ⚡ Performance-focused UI
+* 📱 Fully responsive design
+* 🚀 Production-ready mindset
+
+---
+
+## 🔗 Live Demo
+
+👉 https://accredian-six.vercel.app
+
+---
+
+## 👩‍💻 Author
+
+Built by **Khush**
