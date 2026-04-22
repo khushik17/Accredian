@@ -48,7 +48,7 @@ npm install
 Copy-Item .env.example .env.local
 ```
 
-3. Add your API key to `.env.local`:
+3. Add your API key to `.env.local` or `.env`:
 
 ```env
 GROQ_API_KEY=your_actual_groq_api_key

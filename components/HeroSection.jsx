@@ -43,7 +43,7 @@ export default function HeroSection() {
               <div className="mt-8">
                 <a
                   href="#contact"
-                  className="rounded-md border border-transparent bg-[#2f57ff] px-7 py-3 text-sm font-semibold text-white transition hover:bg-[#2046e8]"
+                  className="gradient-button ripple-button rounded-md border border-transparent bg-[#2f57ff] px-7 py-3 text-sm font-semibold text-white transition hover:bg-[#2046e8]"
                 >
                   Enquire Now
                 </a>

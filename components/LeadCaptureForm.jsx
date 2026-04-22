@@ -147,7 +147,7 @@ export default function LeadCaptureForm() {
         <button
           type="submit"
           disabled={status === "submitting"}
-          className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-70"
+          className="gradient-button ripple-button inline-flex items-center justify-center rounded-xl bg-blue-600 px-6 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-70"
         >
           {status === "submitting" ? "Saving..." : "Submit enquiry"}
         </button>

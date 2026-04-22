@@ -1,9 +1,7 @@
 import SectionTitle from "./SectionTitle";
 
-export default function PartnershipsSection({ partners, loading }) {
-  const marqueePartners = [...partners, ...partners];
-
-  const LoadingSkeleton = () => (
+function LoadingSkeleton() {
+  return (
     <div className="relative overflow-hidden">
       <div className="partner-marquee-track flex w-max items-center gap-6 py-2">
         {Array.from({ length: 6 }).map((_, index) => (
@@ -17,6 +15,10 @@ export default function PartnershipsSection({ partners, loading }) {
       </div>
     </div>
   );
+}
+
+export default function PartnershipsSection({ partners, loading }) {
+  const marqueePartners = [...partners, ...partners];
 
   return (
     <section id="clients" className="bg-slate-100 py-14">

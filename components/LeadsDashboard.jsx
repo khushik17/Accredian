@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
 function formatDateTime(value) {
@@ -62,8 +63,31 @@ export default function LeadsDashboard() {
     }
   };
 
+  const loadInitialLeads = async () => {
+    setError("");
+
+    try {
+      const response = await fetch("/api/leads", { cache: "no-store" });
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data?.error || "Could not load leads.");
+      }
+
+      setLeads(Array.isArray(data?.leads) ? data.leads : []);
+    } catch (loadError) {
+      setError(loadError?.message || "Failed to load leads.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    loadLeads();
+    const timer = setTimeout(() => {
+      loadInitialLeads();
+    }, 0);
+
+    return () => clearTimeout(timer);
   }, []);
 
   const filteredLeads = useMemo(() => {
@@ -104,12 +128,12 @@ export default function LeadsDashboard() {
             >
               Refresh
             </button>
-            <a
+            <Link
               href="/"
               className="rounded-xl bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700"
             >
               Back to site
-            </a>
+            </Link>
           </div>
         </div>
 

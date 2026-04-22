@@ -1,4 +1,8 @@
+"use client";
+
 /* eslint-disable @next/next/no-img-element */
+
+import { useState } from "react";
 
 const cards = [
   {
@@ -28,6 +32,16 @@ const cards = [
 ];
 
 export default function CourseSegmentationSection() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const goToPrevious = () => {
+    setCurrentIndex((current) => (current === 0 ? cards.length - 1 : current - 1));
+  };
+
+  const goToNext = () => {
+    setCurrentIndex((current) => (current === cards.length - 1 ? 0 : current + 1));
+  };
+
   return (
     <section id="courses" className="bg-slate-50 py-18 md:py-20">
       <div className="mx-auto w-full max-w-7xl px-5 md:px-8">
@@ -56,7 +70,61 @@ export default function CourseSegmentationSection() {
           </div>
         </div>
 
-        <div className="-mt-6 grid gap-5 md:-mt-8 md:grid-cols-2 xl:-mt-10 xl:grid-cols-4">
+        <div className="md:hidden">
+          <div className="relative -mt-8 mx-auto max-w-sm px-1">
+            <div className="overflow-hidden rounded-[1.35rem] border border-slate-200 bg-white shadow-[0_18px_45px_rgba(15,23,42,0.12)]">
+              <div className="relative h-44">
+                <img
+                  src={cards[currentIndex].image}
+                  alt={cards[currentIndex].title}
+                  className="h-full w-full object-cover"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-linear-to-r from-[#1d4ed8]/35 via-[#2563eb]/15 to-transparent" />
+                <button
+                  type="button"
+                  onClick={goToPrevious}
+                  aria-label="Previous course segmentation"
+                  className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-white/95 p-2 text-slate-700 shadow-lg"
+                >
+                  ‹
+                </button>
+                <button
+                  type="button"
+                  onClick={goToNext}
+                  aria-label="Next course segmentation"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-white/95 p-2 text-slate-700 shadow-lg"
+                >
+                  ›
+                </button>
+              </div>
+
+              <div className="border-t border-slate-200 bg-white p-5 text-center">
+                <p className="text-[0.72rem] font-semibold uppercase tracking-[0.24em] text-blue-600">Section</p>
+                <h3 className="mt-2 text-xl font-extrabold tracking-[-0.03em] text-slate-900">
+                  {cards[currentIndex].title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">{cards[currentIndex].subtitle}</p>
+              </div>
+            </div>
+
+            <div className="mt-3 flex items-center justify-center gap-2">
+              {cards.map((card, index) => (
+                <button
+                  key={card.title}
+                  type="button"
+                  onClick={() => setCurrentIndex(index)}
+                  aria-label={`Go to ${card.title}`}
+                  className={`h-2.5 rounded-full transition-all ${
+                    index === currentIndex ? "w-6 bg-blue-600" : "w-2.5 bg-slate-300"
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="hidden -mt-6 gap-5 md:grid md:grid-cols-2 xl:-mt-10 xl:grid-cols-4">
           {cards.map((card) => (
             <article
               key={card.title}

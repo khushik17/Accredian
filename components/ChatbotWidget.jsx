@@ -113,7 +113,7 @@ export default function ChatbotWidget() {
             <button
               type="submit"
               disabled={isSending}
-              className="rounded-lg bg-blue-600 px-3.5 py-1.5 text-sm font-semibold text-white disabled:opacity-60"
+              className="gradient-button ripple-button rounded-lg bg-blue-600 px-3.5 py-1.5 text-sm font-semibold text-white disabled:opacity-60"
             >
               Send
             </button>

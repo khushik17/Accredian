@@ -17,6 +17,7 @@ import TestimonialsSection from "./TestimonialsSection";
 import TrackRecordSection from "./TrackRecordSection";
 import WhoShouldJoinSection from "./WhoShouldJoinSection";
 import SuccessStoriesSection from "./SuccessStoriesSection";
+import RevealSection from "./RevealSection";
 
 export default function EnterpriseLanding() {
   const [partners, setPartners] = useState([]);
@@ -57,25 +58,27 @@ export default function EnterpriseLanding() {
   }, []);
 
   return (
-    <div className="relative min-h-screen w-full overflow-x-hidden bg-[#080a2a] transition-colors duration-500">
-      <Navbar />
-      <main>
-        <HeroSection />
-        <TrackRecordSection />
-        <PartnershipsSection partners={partners} loading={loading} />
-        <SuccessStoriesSection />
-        <EdgeSection />
-        <DomainSection />
-        <CourseSegmentationSection />
-        <WhoShouldJoinSection />
-        <CatFrameworkSection />
-        <DeliveryStepsSection />
-        <TestimonialsSection />
-        <FaqSection />
-      </main>
-      <CtaBanner />
-      <Footer />
-      <ChatbotWidget />
+    <div className="relative min-h-screen w-full overflow-x-hidden bg-[#080a2a]">
+      <div className="motion-off">
+        <Navbar />
+        <main>
+          <HeroSection />
+          <TrackRecordSection />
+          <PartnershipsSection partners={partners} loading={loading} />
+          <SuccessStoriesSection />
+          <EdgeSection />
+          <DomainSection />
+          <CourseSegmentationSection />
+          <WhoShouldJoinSection />
+          <CatFrameworkSection />
+          <DeliveryStepsSection />
+          <TestimonialsSection />
+          <FaqSection />
+        </main>
+        <ChatbotWidget />
+      </div>
+      <RevealSection delay={520}><CtaBanner /></RevealSection>
+      <RevealSection delay={560}><Footer /></RevealSection>
     </div>
   );
 }

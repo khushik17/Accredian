@@ -4,7 +4,7 @@ export default function CtaBanner() {
   return (
     <section
       id="contact"
-      className="lead-section relative overflow-hidden bg-[#080a2a] py-12 text-white transition-colors duration-500"
+      className="lead-section relative overflow-hidden bg-[#080a2a] py-12 text-white"
     >
       <div className="mx-auto grid w-full max-w-7xl gap-8 px-5 md:grid-cols-[1.05fr_0.95fr] md:px-8">
         <div className="flex flex-col justify-center">

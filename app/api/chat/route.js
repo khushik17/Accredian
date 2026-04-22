@@ -15,8 +15,8 @@ export async function POST(request) {
     if (!process.env.GROQ_API_KEY) {
       return NextResponse.json(
         {
-          reply:
-            "Groq is not configured yet. Please add GROQ_API_KEY to .env.local and restart npm run dev. Example: GROQ_API_KEY=gsk_...",
+            error:
+              "Groq is not configured yet. Please add GROQ_API_KEY to your local env file (.env.local or .env) and restart npm run dev. Example: GROQ_API_KEY=gsk_...",
           configured: false,
         },
         { status: 200 },
